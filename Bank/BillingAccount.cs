@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
-    internal class BillingAccount
+    internal class BillingAccount : Account
     {
-        public string AccountNumber;
-        public decimal Balance;
-        public string FirstName;
-        public string LastName;
-        public long IdNumber;
+
+        public BillingAccount(string accountNumber, decimal balance, string firstName, string lastName, long idNumber) : base(accountNumber,balance,firstName,lastName,idNumber)
+        {
+
+        }
 
     }
 }
