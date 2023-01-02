@@ -9,26 +9,27 @@
             Console.WriteLine(name);
             Console.WriteLine(author);
 
-            SavingsAccount savingsAccount = new SavingsAccount(1, "Michał", "Kowalski", 92012014325);
-            SavingsAccount savingsAccount2 = new SavingsAccount(2, "Magdalena", "Wodna", 88053124625);
+            /*List <Account> accounts = new List <Account> ();  
+            accounts.Add (new SavingsAccount(1, "Michał", "Kowalski", 92012014325));
+            accounts.Add(new SavingsAccount(2, "Magdalena", "Wodna", 88053124625));
+            accounts.Add(new BillingAccount(3, accounts[0].FirstName, accounts[0].LastName, accounts[0].IdNumber));*/
 
-            /* Console.WriteLine(savingsAccount.GetFullName());
-            Console.WriteLine(savingsAccount2.GetFullName()); */
+            AccountManager manager = new AccountManager();
 
-            Account billingAccount = new BillingAccount(3, savingsAccount.FirstName, savingsAccount.LastName, savingsAccount.IdNumber);
-            //Console.WriteLine(billingAccount.GetFullName());
+            manager.CreateSavingsAccount("Michał", "Kowalski", 92012014325);
+            manager.CreateSavingsAccount("Magdalena", "Wodna", 88053124625);
+            manager.CreateBillingAccount("Michał", "Kowalski", 92012014325);
 
-            
+            //manager.CreateBillingAccount(accounts[0].FirstName, accounts[0].LastName, accounts[0].IdNumber);
 
-            Printer printer = new Printer();
-            
-            printer.Print(savingsAccount);
-            printer.Print(savingsAccount2);
+            IList<Account> accounts = (IList<Account>)manager.GetAllAccounts();
 
-            printer.Print(billingAccount);
+            IPrinter printer = new Printer();
+            //IPrinter printer1= new SmallerPrinter();
 
-
-
+            printer.Print(accounts[0]);
+            printer.Print(accounts[1]);
+            printer.Print(accounts[2]);
 
             Console.ReadKey();
         }
