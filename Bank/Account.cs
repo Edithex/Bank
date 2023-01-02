@@ -9,7 +9,7 @@ namespace Bank
     abstract class Account
     {
 
-        public int Id { get; set; }
+        public int Id { get; }
         public string AccountNumber { get; set; }
         public decimal Balance { get; }
         public string FirstName { get; }
@@ -18,6 +18,7 @@ namespace Bank
 
         public Account(int id, string firstName, string lastName, long idNumber)
         {
+            Id = id;
             Balance = 0.0M;
             FirstName = firstName;
             LastName = lastName;

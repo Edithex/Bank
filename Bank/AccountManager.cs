@@ -20,19 +20,7 @@ namespace Bank
             return _accounts;
         }
 
-        private int generateId()
-        {
-            int id = 2;
-
-           if (_accounts.Any())
-            {
-                id = _accounts.Max(x => x.Id) + 1;
-               // id = 3;
-            }
-           
-            return id;
-        }
-
+        
         public SavingsAccount CreateSavingsAccount(string firstName, string lastName, long idNumber)
         {
             int id = generateId();
@@ -55,5 +43,16 @@ namespace Bank
             return account;
         }
 
+        private int generateId()
+        {
+            int id = 1;
+
+            if (_accounts.Any())
+            {
+                id = _accounts.Max(x => x.Id) + 1;
+            }
+
+            return id;
+        }
     }
 }
