@@ -8,19 +8,11 @@ namespace Bank
 {
     internal class Printer
     {
-        public void Print(SavingsAccount account)
+        public void Print(Account account)
         {
             Console.WriteLine("Numer konta: {0}", account.AccountNumber);
             Console.WriteLine("Stan konta: {0} zł", account.GetBalance());
-            Console.WriteLine("Imię i nazwisko: {0}", account.GetFullName());
-            Console.WriteLine("Numer Pesel: {0}", account.IdNumber);
-            Console.WriteLine();
-        }
-
-        public void Print(BillingAccount account)
-        {
-            Console.WriteLine("Numer konta: {0}", account.AccountNumber);
-            Console.WriteLine("Stan konta: {0} zł", account.GetBalance());
+            Console.WriteLine("Typ konta: {0}", account.TypeName());
             Console.WriteLine("Imię i nazwisko: {0}", account.GetFullName());
             Console.WriteLine("Numer Pesel: {0}", account.IdNumber);
             Console.WriteLine();

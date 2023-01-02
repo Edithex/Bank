@@ -8,20 +8,23 @@ namespace Bank
 {
     abstract class Account
     {
+
+        public int Id;
         public string AccountNumber;
         public decimal Balance;
         public string FirstName;
         public string LastName;
         public long IdNumber;
 
-        public Account(string accountNumber, decimal balance, string firstName, string lastName, long idNumber)
+        public Account(int id, string firstName, string lastName, long idNumber)
         {
-            AccountNumber = accountNumber;
-            Balance = balance;
+            Balance = 0.0M;
             FirstName = firstName;
             LastName = lastName;
             IdNumber = idNumber;
         }
+
+        public abstract string TypeName();
 
         public string GetFullName()
         {
@@ -36,5 +39,10 @@ namespace Bank
 
             return balance;
         }
+
+        
+      
+
+
     }
 }
