@@ -26,6 +26,10 @@ namespace Bank
 
             return accountNumber;
         }
+        public void AddInterest(decimal interest)
+        {
+            Balance += Balance * interest;
+        }
 
     }
 
