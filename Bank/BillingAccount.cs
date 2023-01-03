@@ -26,5 +26,10 @@ namespace Bank
             return accountNumber;
         }
 
+        public void TakeCharge(decimal value)
+        {
+            Balance -= value;
+        }
+
     }
 }
