@@ -11,7 +11,7 @@ namespace Bank
 
         public int Id { get; }
         public string AccountNumber { get; set; }
-        public decimal Balance { get; }
+        public decimal Balance { get; set; }
         public string FirstName { get; }
         public string LastName { get; }
         public long IdNumber { get; }
@@ -41,8 +41,11 @@ namespace Bank
             return balance;
         }
 
-        
-      
+        public void ChangeBalance(decimal value)
+        {
+            Balance += value;
+        }
+
 
 
     }
