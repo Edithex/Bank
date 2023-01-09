@@ -21,12 +21,12 @@ namespace Bank.Commands
 
         public string GetName()
         {
-            return "1 - Lista kont klienta";
+            return "1";
         }
 
         public string GetDescription()
         {
-            return "Wybrano listę kont klienta";
+            return "Lista kont klienta";
         }
 
 
@@ -39,6 +39,7 @@ namespace Bank.Commands
             string firstName, lastName, idNumber;
             Console.WriteLine("Podaj dane klienta:");
             Console.Write("Imię: ");
+            Console.ReadLine();
             firstName = Console.ReadLine();
             Console.Write("Nazwisko: ");
             lastName = Console.ReadLine();
