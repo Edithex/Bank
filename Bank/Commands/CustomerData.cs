@@ -8,7 +8,7 @@ namespace Bank.Commands
 {
     internal class CustomerData
     {
-       /* public string FirstName { get; }
+        public string FirstName { get; }
         public string LastName { get; }
         public long IdNumber { get; }
 
@@ -19,7 +19,7 @@ namespace Bank.Commands
             IdNumber = long.Parse(idNumber);
         }
 
-        public CustomerData ReadCustomerData()
+        public static CustomerData ReadCustomerData()
         {
             string firstName, lastName, idNumber;
             Console.WriteLine("Podaj dane klienta:");
@@ -31,6 +31,6 @@ namespace Bank.Commands
             idNumber = Console.ReadLine();
 
             return new CustomerData(firstName, lastName, idNumber);
-        }*/
+        }
     }
 }
