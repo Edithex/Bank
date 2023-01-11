@@ -15,17 +15,23 @@ namespace Bank.Commands
         {
             Commands = new ICommand[]
             {
-                new ListOfAccountsCommand(accountManager, printer)
+                new ListOfAccountsCommand(accountManager, printer),
+                new AddBillingAccountCommand(accountManager, printer),
+                new AddSavingsAccountCommand(accountManager, printer),
+                new AddMoneyCommand(accountManager, printer),
+                new TakeMoneyCommand(accountManager, printer),
+                new ListOfAllAccounts(accountManager),
+                new CloseMonthCommand(accountManager)
             };
         }
        
         public void Run()
         {
             string action;
-            Console.WriteLine("MENU");
-            Console.WriteLine();
             do
             {
+                Console.WriteLine("MENU SYSTEMU BANKOWEGO");
+                Console.WriteLine();
                 foreach (ICommand command in Commands)
                 {
                     Console.WriteLine("{0} - {1}", command.GetName(), command.GetDescription());
