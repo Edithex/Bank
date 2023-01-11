@@ -151,7 +151,7 @@ namespace Bank
             Console.Clear();
             CustomerData data = ReadCustomerData();
             Console.WriteLine();
-            Console.WriteLine("Konta klienta {0} {1} {2}", data.FirstName, data.LastName, data.IdNumber);
+            Console.WriteLine("Konta klienta {0} {1} {2}", data.FirstName, data.LastName);
             Console.WriteLine();
 
             foreach (Account account in _accountManager.GetAllAccountsFor(data.FirstName, data.LastName, data.IdNumber))
