@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bank.Commands
 {
-    internal class ListOfAccountsCommand : ICommand
+    internal class AddSavingsAccountCommand : ICommand
     {
         private AccountManager AccountManager;
         private Printer Printer;
         private CustomerData CustomerData;
 
-        public ListOfAccountsCommand(AccountManager accountManager, Printer printer)
+        public AddSavingsAccountCommand(AccountManager accountManager, Printer printer)
         {
             AccountManager = accountManager;
             Printer = printer;
@@ -22,12 +21,12 @@ namespace Bank.Commands
 
         public string GetName()
         {
-            return "1";
+            return "3";
         }
 
         public string GetDescription()
         {
-            return "Lista kont klienta";
+            return "Otwarcie konta oszczędnościowego";
         }
 
 
@@ -35,15 +34,12 @@ namespace Bank.Commands
         {
             Console.Clear();
             CustomerData data = CustomerData.ReadCustomerData();
-            Console.WriteLine("Konta klienta {0} {1} {2}", data.FirstName, data.LastName, data.IdNumber);
-            Console.WriteLine();
-
-            foreach (Account account in AccountManager.GetAllAccountsFor(data.FirstName, data.LastName, data.IdNumber))
-            {
-                Printer.Print(account);
-            }
+            Account savingsAccount = AccountManager.CreateSavingsAccount(data.FirstName, data.LastName, data.IdNumber);
+            Console.Clear();
+            Console.WriteLine("Utworzono konto rozliczeniowe:");
+            Printer.Print(savingsAccount);
             Console.ReadKey();
         }
-        
-}
+
+    }
 }

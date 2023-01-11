@@ -7,27 +7,27 @@ using System.Threading.Tasks;
 
 namespace Bank.Commands
 {
-    internal class ListOfAccountsCommand : ICommand
+    internal class AddBillingAccountCommand : ICommand
     {
+
         private AccountManager AccountManager;
         private Printer Printer;
         private CustomerData CustomerData;
 
-        public ListOfAccountsCommand(AccountManager accountManager, Printer printer)
+        public AddBillingAccountCommand(AccountManager accountManager, Printer printer)
         {
             AccountManager = accountManager;
             Printer = printer;
-
         }
 
         public string GetName()
         {
-            return "1";
+            return "2";
         }
 
         public string GetDescription()
         {
-            return "Lista kont klienta";
+            return "Otwarcie konta rozliczeniowego";
         }
 
 
@@ -35,15 +35,12 @@ namespace Bank.Commands
         {
             Console.Clear();
             CustomerData data = CustomerData.ReadCustomerData();
-            Console.WriteLine("Konta klienta {0} {1} {2}", data.FirstName, data.LastName, data.IdNumber);
-            Console.WriteLine();
-
-            foreach (Account account in AccountManager.GetAllAccountsFor(data.FirstName, data.LastName, data.IdNumber))
-            {
-                Printer.Print(account);
-            }
+            Account billingAccount = AccountManager.CreateBillingAccount(data.FirstName, data.LastName, data.IdNumber);
+            Console.Clear();
+            Console.WriteLine("Utworzono konto rozliczeniowe:");
+            Printer.Print(billingAccount);
             Console.ReadKey();
         }
-        
-}
+
+    }
 }
