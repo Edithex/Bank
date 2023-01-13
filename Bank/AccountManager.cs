@@ -10,10 +10,20 @@ namespace Bank
     internal class AccountManager
     {
         private IList<Account> _accounts;
+ 
 
         public AccountManager()
         {
             _accounts= new List<Account>();
+        }
+
+        public static void SaveToFile(string firstName, string lastName, long idNumber)
+        {
+            StreamWriter sw = new StreamWriter("C:\\Users\\kurow\\source\\repos\\Bank\\Bank\\TextFile\\AccountsDataBase.txt");
+            sw.WriteLine(firstName);
+            sw.WriteLine(lastName);
+            sw.WriteLine(idNumber);
+            sw.Close();
         }
 
         public IEnumerable<Account> GetAllAccounts()
@@ -111,6 +121,8 @@ namespace Bank
             Account account = GetAccount(accountNumber);
             account.ChangeBalance(-value);
         }
+
+
 
         private int generateId()
         {
