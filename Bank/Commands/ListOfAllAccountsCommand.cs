@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bank.Commands
 {
-    internal class ListOfAllAccounts : ICommand
+    internal class ListOfAllAccountsCommand : ICommand
     {
         private AccountManager AccountManager;
         private Printer Printer;
 
-        public ListOfAllAccounts(AccountManager accountManager)
+        public ListOfAllAccountsCommand(AccountManager accountManager)
         {
             AccountManager = accountManager;
 
