@@ -16,7 +16,8 @@ namespace Bank.Commands
         {
             FirstName = firstName;
             LastName = lastName;
-            IdNumber = long.Parse(idNumber);
+            if (long.TryParse(idNumber, out var number))
+                IdNumber = number;
         }
 
         public static CustomerData ReadCustomerData()
