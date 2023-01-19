@@ -20,8 +20,9 @@ namespace Bank.Commands
                 new AddSavingsAccountCommand(accountManager, printer),
                 new AddMoneyCommand(accountManager, printer),
                 new TakeMoneyCommand(accountManager, printer),
-                new ListOfAllAccounts(accountManager),
-                new CloseMonthCommand(accountManager)
+                new ListOfAllAccountsCommand(accountManager),
+                new CloseMonthCommand(accountManager),
+                new SaveCommand(accountManager)
             };
         }
        
