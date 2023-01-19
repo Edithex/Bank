@@ -17,14 +17,6 @@ namespace Bank
             _accounts= new List<Account>();
         }
 
-        public static void SaveToFile(string firstName, string lastName, long idNumber)
-        {
-            StreamWriter sw = new StreamWriter("C:\\Users\\kurow\\source\\repos\\Bank\\Bank\\TextFile\\AccountsDataBase.txt");
-            sw.WriteLine(firstName);
-            sw.WriteLine(lastName);
-            sw.WriteLine(idNumber);
-            sw.Close();
-        }
 
         public IEnumerable<Account> GetAllAccounts()
         {
