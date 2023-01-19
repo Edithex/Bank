@@ -35,7 +35,6 @@ namespace Bank.Commands
             Console.Clear();
             CustomerData data = CustomerData.ReadCustomerData();
             Account savingsAccount = AccountManager.CreateSavingsAccount(data.FirstName, data.LastName, data.IdNumber);
-            AccountManager.SaveToFile(data.FirstName, data.LastName, data.IdNumber);
             Console.Clear();
             Console.WriteLine("Utworzono konto rozliczeniowe:");
             Printer.Print(savingsAccount);
