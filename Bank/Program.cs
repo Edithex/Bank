@@ -1,4 +1,6 @@
 ﻿using Bank.Commands;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Bank
 {
@@ -6,13 +8,33 @@ namespace Bank
     {
         static void Main(string[] args)
         {
-            AccountManager accountManager = new AccountManager();
-            Printer printer= new Printer(); 
+            string connstring = "Data Source = DESKTOP-DKAMI8D;Initial Catalog=Bank;Integrated Security=true";
+            SqlConnection con = new SqlConnection(connstring);
+            try
+            {
+                con.Open();
+                Console.WriteLine("Nawiązano połączenie z serwerem");
+                Console.WriteLine();
+                AccountManager accountManager = new AccountManager();
+                Printer printer = new Printer();
 
-            Menu menu = new Menu(accountManager,printer);
-            menu.Run();
+                Menu menu = new Menu(accountManager, printer);
+                menu.Run();
 
-            Console.ReadKey();
+                Console.ReadKey();
+            }
+            catch (SqlException sqlex)
+            {
+                Console.WriteLine("Błąd" + sqlex.Message);
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    Console.WriteLine("Zamknięto połączenie");
+                    con.Close();
+                }
+            } 
         }
     }
 }
