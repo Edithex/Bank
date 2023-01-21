@@ -89,6 +89,16 @@ namespace Bank
             return _accounts.Select(a => string.Format("{0} {1} PESEL: {2}", a.FirstName, a.LastName, a.IdNumber)).Distinct();
         }
 
+        public IEnumerable<string> ListOfCustomersAccountBilling()
+        {
+            return _accounts.Where(m => m.TypeName() == "Rozliczeniowe").Select(a => string.Format("{0} {1} PESEL: {2} NUMER KONTA: {3} STAN KONTA: {4}", a.FirstName, a.LastName, a.IdNumber, a.AccountNumber, a.Balance)).Distinct();
+        }
+
+        public IEnumerable<string> ListOfCustomersAccountSavings()
+        {
+            return _accounts.Where(m => m.TypeName() == "Oszczędnościowe").Select(a => string.Format("{0} {1} PESEL: {2} NUMER KONTA: {3} STAN KONTA: {4}", a.FirstName, a.LastName, a.IdNumber, a.AccountNumber, a.Balance)).Distinct();
+        }
+
         public void CloseMonth()
         {
             foreach(SavingsAccount account in _accounts.Where(x => x is SavingsAccount))
