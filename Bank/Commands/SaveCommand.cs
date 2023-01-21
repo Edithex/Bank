@@ -31,7 +31,13 @@ namespace Bank.Commands
             Console.Clear();
             using (var sw = new StreamWriter("C:\\Users\\kurow\\source\\repos\\Bank\\Bank\\TextFile\\AccountsDataBase.txt"))
             {
-                foreach (string customer in AccountManager.ListOfCustomers())
+                sw.WriteLine("Konta oszczędnościowe:");
+                foreach (string customer in AccountManager.ListOfCustomersAccountSavings())
+                {
+                    sw.WriteLine(customer);
+                }
+                sw.WriteLine("Konta rozliczeniowe:");
+                foreach (string customer in AccountManager.ListOfCustomersAccountBilling())
                 {
                     sw.WriteLine(customer);
                 }
