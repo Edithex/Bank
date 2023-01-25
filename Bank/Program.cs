@@ -15,6 +15,21 @@ namespace Bank
                 con.Open();
                 Console.WriteLine("Nawiązano połączenie z serwerem");
                 Console.WriteLine();
+                if(con.State == ConnectionState.Open) 
+                {
+                    string query = "SELECT FirstName, LastName, AccountNumber, IdNumber FROM Accounts";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    using (SqlDataReader reader = cmd.ExecuteReader()) 
+                    { 
+                        while (reader.Read())
+                        {
+                            Console.WriteLine("Imię i nazwisko: {0} {1} PESEL: {2} Numer konta: {3}", reader["FirstName"], reader["LastName"], reader["IdNumber"], reader["AccountNumber"]);
+                        }
+                    }
+                }
+
+
+                Console.WriteLine();
                 AccountManager accountManager = new AccountManager();
                 Printer printer = new Printer();
 
