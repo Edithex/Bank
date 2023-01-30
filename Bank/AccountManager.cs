@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -10,11 +12,14 @@ namespace Bank
     internal class AccountManager
     {
         private IList<Account> _accounts;
- 
+        ConnectWithSql connect = new ConnectWithSql();
+
 
         public AccountManager()
         {
             _accounts= new List<Account>();
+            
+            //_accounts = _accounts;
         }
 
 
@@ -23,7 +28,7 @@ namespace Bank
             return _accounts;
         }
 
-        
+
         public SavingsAccount CreateSavingsAccount(string firstName, string lastName, long idNumber)
         {
             int id = generateId();
@@ -121,9 +126,60 @@ namespace Bank
         public void TakeMoney(string accountNumber, decimal value)
         {
             Account account = GetAccount(accountNumber);
-            account.ChangeBalance(-value);
+            if(value < account.Balance)
+            
+                account.ChangeBalance(-value);
+           
         }
 
+        public void GetAllAccountsFromDataBase()
+        {
+            try
+            {
+                connect.OpenConnection();
+                IList<Account> accounts = new List<Account>();
+                accounts = GetAccounts();
+
+                foreach (Account account in accounts)
+                {
+                    _accounts.Add(account);
+                }
+            }
+            catch (SqlException sqlex)
+            {
+                Console.WriteLine("Błąd" + sqlex.Message);
+            }
+            finally
+            {
+                if (connect.StatusConnection())
+                {
+                    connect.CloseConnection();
+                }
+            }
+        }
+
+        private IList<Account> GetAccounts()
+        {
+            
+            var dane = connect.ExeQuery("SELECT id_account, AccountNumber, Balance, FirstName, LastName, IdNumber, TypeName FROM Accounts");
+            List<Account> accounts = new List<Account>();
+
+
+            foreach (DataRow dr in dane)
+            {
+                if (dr["TypeName"].ToString() == "Oszczędnościowe")
+                {
+                    SavingsAccount nsa = new SavingsAccount(int.Parse(dr["id_account"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()));
+                    accounts.Add(nsa);
+                }
+                else
+                {
+                    BillingAccount nba = new BillingAccount(int.Parse(dr["id_account"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()));
+                    accounts.Add(nba);
+                }
+            }
+            return accounts;
+        }
 
 
         private int generateId()
