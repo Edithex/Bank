@@ -33,16 +33,26 @@ namespace Bank.Commands
 
         public void Run()
         {
+
             string accountNumber;
             decimal value;
             Console.Clear();
             Console.WriteLine("Podaj numer konta");
             accountNumber = Console.ReadLine();
+            Account account = AccountManager.GetAccount(accountNumber);
             Console.WriteLine("Podaj kwotę do wypłaty");
             value = decimal.Parse(Console.ReadLine());
-            AccountManager.TakeMoney(accountNumber, value);
-            Account account = AccountManager.GetAccount(accountNumber);
+            if (value < account.Balance)
+            {
+                AccountManager.TakeMoney(accountNumber, value);
+            }
+            else
+            {
+                Console.WriteLine("Kwota jest mniejsza od salda konta");
+            }
             Printer.Print(account);
+            Console.ReadKey();
+
         }
     }
 }
