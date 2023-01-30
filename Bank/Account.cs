@@ -9,12 +9,12 @@ namespace Bank
     abstract class Account
     {
 
-        public int Id { get; }
+        public int Id { get; set; }
         public string AccountNumber { get; set; }
         public decimal Balance { get; set; }
-        public string FirstName { get; }
-        public string LastName { get; }
-        public long IdNumber { get; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public long IdNumber { get; set; }
 
         public Account(int id, string firstName, string lastName, long idNumber)
         {
@@ -27,6 +27,11 @@ namespace Bank
 
         public abstract string TypeName();
 
+      /*  public override string ToString()
+        {
+            return $"Id: {Id} Imię i nazwisko: {FirstName} {LastName} PESEL: {IdNumber} Numer konta: {AccountNumber} Saldo: {Balance}"; 
+        }
+      */
         public string GetFullName()
         {
             string fullName = string.Format("{0} {1}", FirstName, LastName);
