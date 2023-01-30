@@ -33,7 +33,7 @@ namespace Bank.Commands
             Console.Clear();
             Console.WriteLine("Lista klientów:");
 
-            foreach (string customer in AccountManager.ListOfCustomers())
+            foreach (Account customer in AccountManager.GetAllAccounts())
             {
                 Console.WriteLine(customer);
             }
