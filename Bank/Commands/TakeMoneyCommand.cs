@@ -42,14 +42,7 @@ namespace Bank.Commands
             Account account = AccountManager.GetAccount(accountNumber);
             Console.WriteLine("Podaj kwotę do wypłaty");
             value = decimal.Parse(Console.ReadLine());
-            if (value < account.Balance)
-            {
-                AccountManager.TakeMoney(accountNumber, value);
-            }
-            else
-            {
-                Console.WriteLine("Kwota jest mniejsza od salda konta");
-            }
+            AccountManager.TakeMoney(accountNumber, value);
             Printer.Print(account);
             Console.ReadKey();
 
