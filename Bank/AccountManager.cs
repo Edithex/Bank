@@ -119,17 +119,45 @@ namespace Bank
 
         public void AddMoney(string accountNumber, decimal value)
         {
-            Account account = GetAccount(accountNumber);        
+
+            Account account = GetAccount(accountNumber);
+            try
+            {
+                if (value < 0)
+                {
+                    throw new Exception("Value must be positive number");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Błąd: {0}", ex.Message);
+            }
             account.ChangeBalance(value);
         }
 
         public void TakeMoney(string accountNumber, decimal value)
         {
             Account account = GetAccount(accountNumber);
-            if(value < account.Balance)
-            
+            try
+            {
+                if (value < 0)
+                {
+                    throw new Exception("Value must be positive number");
+                }
+
+                if (value > account.Balance)
+                {
+                    throw new Exception("Value must be bigger than account balance");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Błąd: {0}", ex.Message);
+            }
+
+            if (value < account.Balance)
                 account.ChangeBalance(-value);
-           
+
         }
 
         public void GetAllAccountsFromDataBase()
