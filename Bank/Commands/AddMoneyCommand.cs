@@ -42,6 +42,7 @@ namespace Bank.Commands
             AccountManager.AddMoney(accountNumber, value);
             Account account = AccountManager.GetAccount(accountNumber);
             Printer.Print(account);
+            Console.ReadKey();
         }
     }
 }
