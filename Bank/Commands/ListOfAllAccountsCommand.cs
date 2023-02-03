@@ -9,7 +9,7 @@ namespace Bank.Commands
     internal class ListOfAllAccountsCommand : ICommand
     {
         private AccountManager AccountManager;
-        private Printer Printer;
+      // private Printer Printer;
 
         public ListOfAllAccountsCommand(AccountManager accountManager)
         {
@@ -35,7 +35,9 @@ namespace Bank.Commands
 
             foreach (Account customer in AccountManager.GetAllAccounts())
             {
-                Console.WriteLine(customer);
+                
+                Console.WriteLine($"{customer.FirstName} {customer.LastName} Numer konta: {customer.AccountNumber} PESEL: {customer.IdNumber} Saldo: {customer.Balance}");
+                   
             }
             Console.ReadKey();
         }
