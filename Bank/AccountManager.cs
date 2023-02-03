@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -13,6 +14,7 @@ namespace Bank
     {
         private IList<Account> _accounts;
         ConnectWithSql connect = new ConnectWithSql();
+        
 
 
         public AccountManager()
@@ -34,8 +36,8 @@ namespace Bank
             int id = generateId();
 
             SavingsAccount account = new SavingsAccount(id, firstName, lastName, idNumber);
-
             _accounts.Add(account);
+            connect.ExeQueryAddToDataBase(account);
 
             return account;
         }
@@ -47,6 +49,7 @@ namespace Bank
             BillingAccount account = new BillingAccount(id, firstName, lastName, idNumber);
 
             _accounts.Add(account);
+            connect.ExeQueryAddToDataBase(account);
 
             return account;
         }

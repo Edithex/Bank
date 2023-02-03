@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Security.Principal;
 
 namespace Bank
 {
@@ -26,6 +27,37 @@ namespace Bank
         {
             con.Close();
             Console.WriteLine("Zamknięto połączenie");
+        }
+
+        public void ExeQueryAddToDataBase(Account account)
+        {
+            try
+            {
+                string query = "INSERT INTO Accounts VALUES (@accountNumber, @balance, @typeName, @firstName, @lastName, @idNumber)";
+                OpenConnection();
+                Console.WriteLine("Połączono z bazą");
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@accountNumber", account.AccountNumber);
+                cmd.Parameters.AddWithValue("@balance", account.Balance);
+                cmd.Parameters.AddWithValue("@firstName", account.FirstName);
+                cmd.Parameters.AddWithValue("@lastName", account.LastName);
+                cmd.Parameters.AddWithValue("@typeName", account.TypeName());
+                cmd.Parameters.AddWithValue("@idNumber", account.IdNumber);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("dodano do bazy");
+                Console.ReadKey();
+            }
+            catch (SqlException sqlex)
+            {
+                Console.WriteLine("Błąd" + sqlex.Message);
+            }
+            finally
+            {
+                if (StatusConnection())
+                {
+                    CloseConnection();
+                }
+            }
         }
 
         public DataRowCollection ExeQuery(string Query_)
