@@ -10,6 +10,7 @@ namespace Bank.Commands
     internal class Menu
     {
         private IEnumerable<ICommand> Commands;
+        
 
         public Menu(AccountManager accountManager, Printer printer)
         {
@@ -22,13 +23,14 @@ namespace Bank.Commands
                 new TakeMoneyCommand(accountManager, printer),
                 new ListOfAllAccountsCommand(accountManager),
                 new CloseMonthCommand(accountManager),
-                new SaveCommand(accountManager),
-                new GetAccountsCommand(accountManager)
-            };
+                //new SaveCommand(accountManager), 
+                //new GetAccountsCommand(accountManager)
+             };
         }
        
         public void Run()
         {
+            
             string action;
             do
             {
