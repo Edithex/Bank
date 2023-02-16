@@ -154,10 +154,10 @@ namespace Bank
             Console.WriteLine("Konta klienta {0} {1} {2}", data.FirstName, data.LastName);
             Console.WriteLine();
 
-            foreach (Account account in _accountManager.GetAllAccountsFor(data.FirstName, data.LastName, data.IdNumber))
+           /* foreach (Account account in _accountManager.GetAllAccountsFor(data.FirstName, data.LastName, data.IdNumber))
             {
                 _printer.Print(account);
-            }
+            }*/
 
         }
 
