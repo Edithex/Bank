@@ -18,5 +18,25 @@ namespace Bank
             Console.WriteLine();
         }
 
+        public void Print(IEnumerable<Account> accounts)
+        {
+            
+            foreach (Account account in accounts)
+            {
+                Console.WriteLine($"Numer konta: {account.AccountNumber} Saldo: {account.Balance} zł");
+            };
+        }
+
+
+        public void PrintAllElements(IEnumerable<Account> accounts)
+        {
+
+            foreach (Account account in accounts)
+            {
+                Console.WriteLine($"Imię i nazwisko: {account.FirstName} {account.LastName} Numer konta: {account.AccountNumber} Saldo: {account.Balance} zł");
+            };
+        }
+
+
     }
 }
