@@ -25,6 +25,16 @@ namespace Bank
             IdNumber = idNumber;
         }
 
+        public Account(int id, string firstName, string lastName, long idNumber, decimal balance, string accountNumber)
+        {
+            Id = id;
+            Balance = balance;
+            FirstName = firstName;
+            LastName = lastName;
+            IdNumber = idNumber;
+            AccountNumber = accountNumber;
+        }
+
         public abstract string TypeName();
 
       /*  public override string ToString()
