@@ -54,11 +54,16 @@ namespace Bank
             return account;
         }
 
-        public IEnumerable<Account> GetAllAccountsFor(string firstName, string lastName, long idNumber) 
+        public IEnumerable<Account> GetSavingsAccountsFor(string firstName, string lastName) 
         {
-            /*IList<Account> accounts = new List<Account>();
+            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.TypeName() == "Oszczędnościowe");
+        }
+        public IEnumerable<Account> GetBillingAccountsFor(string firstName, string lastName)
+        {
+            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.TypeName() == "Rozliczeniowe");
+        }
 
-            foreach (Account account in _accounts) 
+        public IEnumerable<Account> GetSavingsAccountsFor(long idNumber)
             {
                 if(account.FirstName == firstName && account.LastName == lastName && account.IdNumber == idNumber)
                 {
@@ -66,10 +71,9 @@ namespace Bank
                 }
             }
 
-            return accounts;*/
-
-            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.IdNumber == idNumber);
-
+        public IEnumerable<Account> GetBillingAccountsFor(long idNumber)
+        {
+            return _accounts.Where(x => x.IdNumber == idNumber && x.TypeName() == "Rozliczeniowe");
         }
 
         public Account GetAccount(string accountNumber)
