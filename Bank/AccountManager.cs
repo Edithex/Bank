@@ -35,7 +35,7 @@ namespace Bank
         {
             int id = generateId();
 
-            SavingsAccount account = new SavingsAccount(id, firstName, lastName, idNumber);
+            SavingsAccount account = new SavingsAccount(id, firstName, lastName, idNumber , GenerateAccountNumber("Oszczędnościowe"));
             _accounts.Add(account);
             connect.ExeQueryAddToDataBase(account);
 
@@ -46,7 +46,7 @@ namespace Bank
         {
             int id = generateId();
 
-            BillingAccount account = new BillingAccount(id, firstName, lastName, idNumber);
+            BillingAccount account = new BillingAccount(id, firstName, lastName, idNumber, GenerateAccountNumber("Rozliczeniowe"));
 
             _accounts.Add(account);
             connect.ExeQueryAddToDataBase(account);
