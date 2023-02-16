@@ -11,7 +11,6 @@ namespace Bank.Commands
     {
         private AccountManager AccountManager;
         private Printer Printer;
-        private CustomerData CustomerData;
 
         public ListOfAccountsCommand(AccountManager accountManager, Printer printer)
         {
@@ -34,15 +33,86 @@ namespace Bank.Commands
         public void Run()
         {
             Console.Clear();
-            CustomerData data = CustomerData.ReadCustomerData();
-            Console.WriteLine("Konta klienta {0} {1} {2}", data.FirstName, data.LastName, data.IdNumber);
-            Console.WriteLine();
-
-            foreach (Account account in AccountManager.GetAllAccountsFor(data.FirstName, data.LastName, data.IdNumber))
+            Console.WriteLine("Wyszukaj konto po:");
+            Console.WriteLine("1 - Imię i nazwisko");
+            Console.WriteLine("2 - Pesel");
+            var choice = Console.ReadLine();
+            while (choice != "0")
             {
-                Printer.Print(account);
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("Podaj imię i nazwisko");
+                        var firstName = Console.ReadLine();
+                        var lastName = Console.ReadLine();
+
+                        IEnumerable<Account> savingsAccounts = AccountManager.GetSavingsAccountsFor(firstName, lastName);
+                        IEnumerable<Account> billingAccounts = AccountManager.GetBillingAccountsFor(firstName, lastName);
+                        Console.WriteLine($"Lista kont dla: {firstName} {lastName}");
+                        if (savingsAccounts.Any())
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Konta rozliczeniowe");
+                            Printer.Print(savingsAccounts);
+                            break;
+                        }
+                        else if (billingAccounts.Any())
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Konta rozliczeniowe");
+                            Printer.Print(billingAccounts);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nie znaleziono kont dla podanych danych");
+                            break;
+                        };
+                    case "2":
+                        Console.WriteLine("Podaj pesel");
+                        var id = Console.ReadLine();
+                        long idNumber;
+                        if (long.TryParse(id, out idNumber))
+                        {
+                            savingsAccounts = AccountManager.GetSavingsAccountsFor(idNumber);
+                            billingAccounts = AccountManager.GetBillingAccountsFor(idNumber);
+                            
+                            if (savingsAccounts.Any())
+                            {   Console.Clear();
+                                Console.WriteLine($"Konta rozliczeniowe");
+                                Printer.Print(savingsAccounts);
+                                break;
+                            }
+                            else if (billingAccounts.Any())
+                            {   
+                                Console.Clear();
+                                Console.WriteLine($"Konta rozliczeniowe");
+                                Printer.Print(billingAccounts);
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nie znaleziono kont dla podanych danych");
+                                break;
+                            };
+                        }
+                        else
+                        {
+                            Console.WriteLine("Błędny numer pesel!");
+                            break;
+                        }
+                       default:
+                            Console.WriteLine("Zła komenda!");
+                            break;
+
+                }
+                Console.WriteLine();
+                Console.WriteLine("Podaj poprawną komendę (Powrót do menu - 0)");
+                choice = Console.ReadLine();
+                
             }
-            Console.ReadKey();
+
+                Console.ReadKey();
         }
         
 }
