@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,12 +65,9 @@ namespace Bank
         }
 
         public IEnumerable<Account> GetSavingsAccountsFor(long idNumber)
-            {
-                if(account.FirstName == firstName && account.LastName == lastName && account.IdNumber == idNumber)
-                {
-                    accounts.Add(account);
-                }
-            }
+        {
+            return _accounts.Where(x => x.IdNumber == idNumber && x.TypeName() == "Oszczędnościowe");
+        }
 
         public IEnumerable<Account> GetBillingAccountsFor(long idNumber)
         {
@@ -80,6 +78,8 @@ namespace Bank
         {
             return _accounts.Single(x => x.AccountNumber == accountNumber);
         }
+
+       
 
         public IEnumerable<string> ListOfCustomers()
         {
@@ -127,7 +127,7 @@ namespace Bank
             foreach(Account account in _accounts)
             {
                 connect.ExeQueryChangeBalanceInDataBase(account);
-        }
+            }
             connect.CloseConnection();
         }
 
@@ -222,7 +222,6 @@ namespace Bank
             }
             return accounts;
         }
-
 
         private int generateId()
         {
