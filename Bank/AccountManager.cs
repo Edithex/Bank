@@ -235,5 +235,25 @@ namespace Bank
 
             return id;
         }
+
+        public int GenerateAccountNumber(string typeName)
+        {
+            int value = 0;
+            int max = 0;
+            if (_accounts.Any())
+            {
+                IEnumerable<Account> accountNumbers = _accounts.Where(x => x.TypeName() == typeName);
+                foreach (Account account in accountNumbers)
+                {
+                    value = int.Parse(account.AccountNumber.Remove(0, 2));
+                    if (value > max)
+                        max = value;
+                }
+                return max+1;
+            }
+            else
+                return value;
+
+        }
     }
 }
