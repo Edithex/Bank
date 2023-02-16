@@ -10,19 +10,24 @@ namespace Bank
     internal class SavingsAccount : Account
     {
 
-        public SavingsAccount(int id, string firstName, string lastName, long idNumber) : base(id, firstName, lastName, idNumber)
+        public SavingsAccount(int id, string firstName, string lastName, long idNumber, int maxNumber) : base(id, firstName, lastName, idNumber)
         {
-            AccountNumber = generateAccountNumber(id);
+            AccountNumber = generateAccountNumber(maxNumber);
         }
-        
+
+        public SavingsAccount(int id, string firstName, string lastName, long idNumber, decimal balance, string accountNumber) : base(id, firstName, lastName, idNumber, balance, accountNumber)
+        {
+        }
+
+
         public override string TypeName()
         {
             return "Oszczędnościowe";
         }
 
-        private string generateAccountNumber(int id)
+        private string generateAccountNumber(int maxNumber)
         {
-            var accountNumber = string.Format("43{0:D8}", id);
+            var accountNumber = string.Format("43{0:D8}", maxNumber);
 
             return accountNumber;
         }

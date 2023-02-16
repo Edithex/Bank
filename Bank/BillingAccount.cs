@@ -9,9 +9,13 @@ namespace Bank
     internal class BillingAccount : Account
     {
 
-        public BillingAccount(int id, string firstName, string lastName, long idNumber) : base(id, firstName, lastName, idNumber)
+        public BillingAccount(int id, string firstName, string lastName, long idNumber, int maxNumber) : base(id, firstName, lastName, idNumber)
         {
-            AccountNumber = generateAccountNumber(id);
+            AccountNumber = generateAccountNumber(maxNumber);
+        }
+        public BillingAccount(int id, string firstName, string lastName, long idNumber, decimal balance, string accountNumber) : base(id, firstName, lastName, idNumber, balance, accountNumber)
+        {
+
         }
 
         public override string TypeName()
@@ -19,16 +23,23 @@ namespace Bank
             return "Rozliczeniowe";
         }
 
-        private string generateAccountNumber(int id)
+        private string generateAccountNumber(int maxNumber)
         {
-            var accountNumber = string.Format("52{0:D8}", id);
+            var accountNumber = string.Format("52{0:D8}", maxNumber);
 
             return accountNumber;
         }
 
         public void TakeCharge(decimal value)
         {
-            Balance -= value;
+            if(Balance < value)
+            {
+                Balance = Balance*(value/100);
+            }
+            else
+            {
+                Balance -= value;
+            }
         }
 
     }
