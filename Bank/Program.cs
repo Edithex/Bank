@@ -30,6 +30,9 @@ namespace Bank
                 Console.WriteLine();
                 AccountManager accountManager = new AccountManager();
                 Printer printer = new Printer();
+                accountManager.GetAllAccountsFromDataBase();
+                
+
 
                 Menu menu = new Menu(accountManager, printer);
                 menu.Run();
