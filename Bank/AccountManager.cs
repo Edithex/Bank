@@ -122,6 +122,13 @@ namespace Bank
             {
                 account.TakeCharge(2.0M); // 2zł charge
             }
+
+            connect.OpenConnection();
+            foreach(Account account in _accounts)
+            {
+                connect.ExeQueryChangeBalanceInDataBase(account);
+        }
+            connect.CloseConnection();
         }
 
         public void AddMoney(string accountNumber, decimal value)
