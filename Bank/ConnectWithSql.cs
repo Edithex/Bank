@@ -12,12 +12,11 @@ namespace Bank
 {
     internal class ConnectWithSql
     {
-        string connstring = "Data Source = DESKTOP-DKAMI8D;Initial Catalog=Bank;Integrated Security=true";
         SqlConnection con;
 
         public void OpenConnection()
         {
-            con = new SqlConnection(connstring);
+            con = new SqlConnection("Data Source = DESKTOP-DKAMI8D;Initial Catalog=Bank;Integrated Security=true");
             con.Open();
             Console.WriteLine("Nawiązano połączenie z serwerem");
             Console.WriteLine();
@@ -59,6 +58,20 @@ namespace Bank
                 }
             }
         }
+
+        public void ExeQueryChangeBalanceInDataBase(Account account)
+        {
+
+                string query = "UPDATE Accounts SET Balance = @balance WHERE id = @id";
+                Console.WriteLine("Połączono z bazą");
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", account.Id);
+                cmd.Parameters.AddWithValue("@balance", account.Balance);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Uaktualniono dane salda");
+
+        }
+
 
         public DataRowCollection ExeQuery(string Query_)
         {
