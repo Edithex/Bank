@@ -203,7 +203,7 @@ namespace Bank
         private IList<Account> GetAccounts()
         {
             
-            var dane = connect.ExeQuery("SELECT id_account, AccountNumber, Balance, FirstName, LastName, IdNumber, TypeName FROM Accounts");
+            var dane = connect.ExeQuery("SELECT id, AccountNumber, Balance, FirstName, LastName, IdNumber, TypeName FROM Accounts");
             List<Account> accounts = new List<Account>();
 
 
@@ -211,12 +211,12 @@ namespace Bank
             {
                 if (dr["TypeName"].ToString() == "Oszczędnościowe")
                 {
-                    SavingsAccount nsa = new SavingsAccount(int.Parse(dr["id_account"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()));
+                    SavingsAccount nsa = new SavingsAccount(int.Parse(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()), decimal.Parse(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
                     accounts.Add(nsa);
                 }
                 else
                 {
-                    BillingAccount nba = new BillingAccount(int.Parse(dr["id_account"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()));
+                    BillingAccount nba = new BillingAccount(int.Parse(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()), decimal.Parse(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
                     accounts.Add(nba);
                 }
             }
