@@ -12,16 +12,17 @@ namespace Bank
         public BillingAccount(int id, string firstName, string lastName, long idNumber, int maxNumber) : base(id, firstName, lastName, idNumber)
         {
             AccountNumber = generateAccountNumber(maxNumber);
+            Type = TypeName.Rozliczeniowe;
         }
         public BillingAccount(int id, string firstName, string lastName, long idNumber, decimal balance, string accountNumber) : base(id, firstName, lastName, idNumber, balance, accountNumber)
         {
-
+            Type = TypeName.Rozliczeniowe;
         }
 
-        public override string TypeName()
+        /*public override void SetType()
         {
-            return "Rozliczeniowe";
-        }
+            Type = TypeName.Rozliczeniowe;
+        }*/
 
         private string generateAccountNumber(int maxNumber)
         {

@@ -36,7 +36,7 @@ namespace Bank
         {
             int id = generateId();
 
-            SavingsAccount account = new SavingsAccount(id, firstName, lastName, idNumber , GenerateAccountNumber("Oszczędnościowe"));
+            SavingsAccount account = new SavingsAccount(id, firstName, lastName, idNumber , GenerateAccountNumber(TypeName.Oszczędnościowe));
             _accounts.Add(account);
             connect.ExeQueryAddToDataBase(account);
 
@@ -47,7 +47,7 @@ namespace Bank
         {
             int id = generateId();
 
-            BillingAccount account = new BillingAccount(id, firstName, lastName, idNumber, GenerateAccountNumber("Rozliczeniowe"));
+            BillingAccount account = new BillingAccount(id, firstName, lastName, idNumber, GenerateAccountNumber(TypeName.Rozliczeniowe));
 
             _accounts.Add(account);
             connect.ExeQueryAddToDataBase(account);
@@ -57,21 +57,21 @@ namespace Bank
 
         public IEnumerable<Account> GetSavingsAccountsFor(string firstName, string lastName) 
         {
-            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.TypeName() == "Oszczędnościowe");
+            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.Type == TypeName.Oszczędnościowe);
         }
         public IEnumerable<Account> GetBillingAccountsFor(string firstName, string lastName)
         {
-            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.TypeName() == "Rozliczeniowe");
+            return _accounts.Where(x => x.FirstName == firstName && x.LastName == lastName && x.Type == TypeName.Rozliczeniowe);
         }
 
         public IEnumerable<Account> GetSavingsAccountsFor(long idNumber)
         {
-            return _accounts.Where(x => x.IdNumber == idNumber && x.TypeName() == "Oszczędnościowe");
+            return _accounts.Where(x => x.IdNumber == idNumber && x.Type == TypeName.Oszczędnościowe);
         }
 
         public IEnumerable<Account> GetBillingAccountsFor(long idNumber)
         {
-            return _accounts.Where(x => x.IdNumber == idNumber && x.TypeName() == "Rozliczeniowe");
+            return _accounts.Where(x => x.IdNumber == idNumber && x.Type == TypeName.Rozliczeniowe);
         }
 
         public Account GetAccount(string accountNumber)
@@ -103,12 +103,12 @@ namespace Bank
 
         public IEnumerable<string> ListOfCustomersAccountBilling()
         {
-            return _accounts.Where(m => m.TypeName() == "Rozliczeniowe").Select(a => string.Format("{0} {1} PESEL: {2} NUMER KONTA: {3} STAN KONTA: {4}", a.FirstName, a.LastName, a.IdNumber, a.AccountNumber, a.Balance)).Distinct();
+            return _accounts.Where(m => m.Type == TypeName.Rozliczeniowe).Select(a => string.Format("{0} {1} PESEL: {2} NUMER KONTA: {3} STAN KONTA: {4}", a.FirstName, a.LastName, a.IdNumber, a.AccountNumber, a.Balance)).Distinct();
         }
 
         public IEnumerable<string> ListOfCustomersAccountSavings()
         {
-            return _accounts.Where(m => m.TypeName() == "Oszczędnościowe").Select(a => string.Format("{0} {1} PESEL: {2} NUMER KONTA: {3} STAN KONTA: {4}", a.FirstName, a.LastName, a.IdNumber, a.AccountNumber, a.Balance)).Distinct();
+            return _accounts.Where(m => m.Type == TypeName.Oszczędnościowe).Select(a => string.Format("{0} {1} PESEL: {2} NUMER KONTA: {3} STAN KONTA: {4}", a.FirstName, a.LastName, a.IdNumber, a.AccountNumber, a.Balance)).Distinct();
         }
 
         public void CloseMonth()
@@ -209,19 +209,27 @@ namespace Bank
 
             foreach (DataRow dr in dane)
             {
-                if (dr["TypeName"].ToString() == "Oszczędnościowe")
+
+                
+
+                if ((TypeName)(Convert.ToInt32(dr["TypeName"].ToString())) == TypeName.Oszczędnościowe)
                 {
                     SavingsAccount nsa = new SavingsAccount(Convert.ToInt32(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), Convert.ToInt64(dr["IdNumber"].ToString()),Convert.ToDecimal(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
                     accounts.Add(nsa);
                 }
-                else
+                else if ((TypeName)(Convert.ToInt32(dr["TypeName"].ToString())) == TypeName.Rozliczeniowe)
                 {
                     BillingAccount nba = new BillingAccount(Convert.ToInt32(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), Convert.ToInt64(dr["IdNumber"].ToString()), Convert.ToDecimal(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
                     accounts.Add(nba);
                 }
+                else
+                {
+                    throw new InvalidOperationException("Unsupported type account");
+                }
             }
             return accounts;
         }
+       
 
         private int generateId()
         {
@@ -235,13 +243,13 @@ namespace Bank
             return id;
         }
 
-        public int GenerateAccountNumber(string typeName)
+        public int GenerateAccountNumber(TypeName type)
         {
             int value = 0;
             int max = 0;
             if (_accounts.Any())
             {
-                IEnumerable<Account> accountNumbers = _accounts.Where(x => x.TypeName() == typeName);
+                IEnumerable<Account> accountNumbers = _accounts.Where(x => x.Type == type);
                 foreach (Account account in accountNumbers)
                 {
                     value = int.Parse(account.AccountNumber.Remove(0, 2));

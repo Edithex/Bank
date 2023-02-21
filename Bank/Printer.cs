@@ -12,7 +12,7 @@ namespace Bank
         {
             Console.WriteLine("Numer konta: {0}", account.AccountNumber);
             Console.WriteLine("Stan konta: {0} zł", account.GetBalance());
-            Console.WriteLine("Typ konta: {0}", account.TypeName());
+            Console.WriteLine("Typ konta: {0}", account.Type);
             Console.WriteLine("Imię i nazwisko: {0}", account.GetFullName());
             Console.WriteLine("Numer Pesel: {0}", account.IdNumber);
             Console.WriteLine();
@@ -23,7 +23,7 @@ namespace Bank
             
             foreach (Account account in accounts)
             {
-                Console.WriteLine($"Numer konta: {account.AccountNumber} Saldo: {account.Balance} zł");
+                Console.WriteLine($"Numer konta: {account.AccountNumber} Saldo: {account.Balance} zł Typ: {account.Type}");
             };
         }
 

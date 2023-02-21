@@ -40,7 +40,7 @@ namespace Bank
                 cmd.Parameters.AddWithValue("@balance", account.Balance);
                 cmd.Parameters.AddWithValue("@firstName", account.FirstName);
                 cmd.Parameters.AddWithValue("@lastName", account.LastName);
-                cmd.Parameters.AddWithValue("@typeName", account.TypeName());
+                cmd.Parameters.AddWithValue("@typeName", account.Type);
                 cmd.Parameters.AddWithValue("@idNumber", account.IdNumber);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("dodano do bazy");

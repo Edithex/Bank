@@ -15,6 +15,7 @@ namespace Bank
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public long IdNumber { get; set; }
+        public TypeName Type { get; set; }
 
         public Account(int id, string firstName, string lastName, long idNumber)
         {
@@ -35,7 +36,7 @@ namespace Bank
             AccountNumber = accountNumber;
         }
 
-        public abstract string TypeName();
+        /*public abstract void SetType();
 
       /*  public override string ToString()
         {

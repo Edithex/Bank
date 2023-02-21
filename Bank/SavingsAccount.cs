@@ -13,17 +13,20 @@ namespace Bank
         public SavingsAccount(int id, string firstName, string lastName, long idNumber, int maxNumber) : base(id, firstName, lastName, idNumber)
         {
             AccountNumber = generateAccountNumber(maxNumber);
+            Type = TypeName.Oszczędnościowe;
         }
 
         public SavingsAccount(int id, string firstName, string lastName, long idNumber, decimal balance, string accountNumber) : base(id, firstName, lastName, idNumber, balance, accountNumber)
         {
+            Type = TypeName.Oszczędnościowe;
         }
 
 
-        public override string TypeName()
+        /*public override void SetType()
         {
-            return "Oszczędnościowe";
-        }
+            Type = TypeName.Oszczędnościowe;
+        }*/
+
 
         private string generateAccountNumber(int maxNumber)
         {
