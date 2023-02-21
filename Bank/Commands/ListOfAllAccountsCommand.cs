@@ -9,7 +9,6 @@ namespace Bank.Commands
     internal class ListOfAllAccountsCommand : ICommand
     {
         private AccountManager AccountManager;
-        private Printer Printer;
 
         public ListOfAllAccountsCommand(AccountManager accountManager)
         {

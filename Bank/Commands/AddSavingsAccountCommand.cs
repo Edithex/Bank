@@ -10,7 +10,6 @@ namespace Bank.Commands
     {
         private AccountManager AccountManager;
         private Printer Printer;
-        private CustomerData CustomerData;
 
         public AddSavingsAccountCommand(AccountManager accountManager, Printer printer)
         {
