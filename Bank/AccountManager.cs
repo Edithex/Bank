@@ -211,12 +211,12 @@ namespace Bank
             {
                 if (dr["TypeName"].ToString() == "Oszczędnościowe")
                 {
-                    SavingsAccount nsa = new SavingsAccount(int.Parse(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()), decimal.Parse(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
+                    SavingsAccount nsa = new SavingsAccount(Convert.ToInt32(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), Convert.ToInt64(dr["IdNumber"].ToString()),Convert.ToDecimal(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
                     accounts.Add(nsa);
                 }
                 else
                 {
-                    BillingAccount nba = new BillingAccount(int.Parse(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), long.Parse(dr["IdNumber"].ToString()), decimal.Parse(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
+                    BillingAccount nba = new BillingAccount(Convert.ToInt32(dr["id"].ToString()), dr["FirstName"].ToString(), dr["LastName"].ToString(), Convert.ToInt64(dr["IdNumber"].ToString()), Convert.ToDecimal(dr["Balance"].ToString()), dr["AccountNumber"].ToString());
                     accounts.Add(nba);
                 }
             }
