@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,21 +30,33 @@ namespace Bank.Commands
         public void Run()
         {
             Console.Clear();
-            using (var sw = new StreamWriter("C:\\Users\\kurow\\source\\repos\\Bank\\Bank\\TextFile\\AccountsDataBase.txt"))
+            string dirname = Directory.GetCurrentDirectory().ToString();
+            string parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString() + "\\TextFile";
+
+            if (!Directory.Exists(parent))
             {
+                Directory.CreateDirectory(parent);
+            }
+
+            using (StreamWriter sw = File.AppendText(parent + "\\AccountsDataBase.txt"))
+            {
+                sw.WriteLine(DateTime.Now);
                 sw.WriteLine("Konta oszczędnościowe:");
-                foreach (string customer in AccountManager.ListOfCustomersAccountSavings())
+                foreach (string account in AccountManager.ListOfCustomersAccountSavings())
                 {
-                    sw.WriteLine(customer);
+                    sw.WriteLine(account);
                 }
                 sw.WriteLine("Konta rozliczeniowe:");
-                foreach (string customer in AccountManager.ListOfCustomersAccountBilling())
+                foreach (string account in AccountManager.ListOfCustomersAccountBilling())
                 {
-                    sw.WriteLine(customer);
+                    sw.WriteLine(account);
                 }
-            }
-            Console.Clear();
+                sw.WriteLine();
+                sw.Close();
+            } 
+
             Console.WriteLine("Zapisano wprowadzone dane kont do pliku");
+            Console.WriteLine($"Ścieżka do pliku: {parent + "\\AccountsDataBase.txt"}");
             Console.ReadKey();
         }
     }

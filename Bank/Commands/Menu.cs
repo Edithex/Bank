@@ -23,7 +23,7 @@ namespace Bank.Commands
                 new TakeMoneyCommand(accountManager, printer),
                 new ListOfAllAccountsCommand(accountManager),
                 new CloseMonthCommand(accountManager),
-                //new SaveCommand(accountManager), 
+                new SaveCommand(accountManager), 
                 //new GetAccountsCommand(accountManager)
              };
         }
