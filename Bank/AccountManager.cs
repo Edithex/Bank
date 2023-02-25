@@ -38,7 +38,11 @@ namespace Bank
 
             SavingsAccount account = new SavingsAccount(id, firstName, lastName, idNumber , GenerateAccountNumber(TypeName.Oszczędnościowe));
             _accounts.Add(account);
+
+            using(connect)
+            {
             connect.ExeQueryAddToDataBase(account);
+            }
 
             return account;
         }
@@ -50,7 +54,11 @@ namespace Bank
             BillingAccount account = new BillingAccount(id, firstName, lastName, idNumber, GenerateAccountNumber(TypeName.Rozliczeniowe));
 
             _accounts.Add(account);
+            using(connect)
+            {
             connect.ExeQueryAddToDataBase(account);
+            }
+            
 
             return account;
         }
@@ -123,12 +131,15 @@ namespace Bank
                 account.TakeCharge(2.0M); // 2zł charge
             }
 
+            using(connect)
+            {
             connect.OpenConnection();
-            foreach(Account account in _accounts)
+                foreach (Account account in _accounts)
             {
                 connect.ExeQueryChangeBalanceInDataBase(account);
             }
             connect.CloseConnection();
+        }
         }
 
         public void AddMoney(string accountNumber, decimal value)
@@ -140,6 +151,15 @@ namespace Bank
                 if (value < 0)
                 {
                     throw new Exception("Value must be positive number");
+                }
+                else
+                {
+                    account.ChangeBalance(value);
+                    using(connect)
+                    {
+                        connect.OpenConnection();
+                        connect.ExeQueryChangeBalanceInDataBase(account);
+            }
                 }
             }
             catch (Exception ex)
@@ -163,6 +183,18 @@ namespace Bank
                 {
                     throw new Exception("Value must be bigger than account balance");
                 }
+                else
+                {
+                    if (value < account.Balance)
+                    {
+                        GetAccount(accountNumber).ChangeBalance(-value);
+                        using(connect)
+                        {
+                            connect.OpenConnection();
+                            connect.ExeQueryChangeBalanceInDataBase(account);
+                        } 
+            }
+                }
             }
             catch (Exception ex)
             {
@@ -178,13 +210,10 @@ namespace Bank
         {
             try
             {
-                connect.OpenConnection();
-                IList<Account> accounts = new List<Account>();
-                accounts = GetAccounts();
-
-                foreach (Account account in accounts)
+                using(connect)
                 {
-                    _accounts.Add(account);
+                connect.OpenConnection();
+                    _accounts = GetAccounts().ToList();
                 }
             }
             catch (SqlException sqlex)

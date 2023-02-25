@@ -10,9 +10,11 @@ using System.Security.Principal;
 
 namespace Bank
 {
-    internal class ConnectWithSql
+    internal class ConnectWithSql : IDisposable
     {
         SqlConnection con;
+        private bool disposed = false;
+
 
         public void OpenConnection()
         {
@@ -21,6 +23,7 @@ namespace Bank
             Console.WriteLine("Nawiązano połączenie z serwerem");
             Console.WriteLine();
         }
+
 
         public void CloseConnection() 
         {
@@ -97,6 +100,30 @@ namespace Bank
             return con.State == ConnectionState.Open;
         }
 
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    CloseConnection();
+                }
+                disposed = true;
+            }
+        }
+
+        ~ConnectWithSql()
+        {
+            Dispose(disposing: false);
+        }
+    }
 
     }
 }
