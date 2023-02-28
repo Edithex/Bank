@@ -7,6 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Security.Principal;
+using System.ComponentModel;
+using System.Reflection.Metadata;
+using System.Configuration;
+using Microsoft.IdentityModel.Protocols;
 
 namespace Bank
 {
@@ -18,7 +22,7 @@ namespace Bank
 
         public void OpenConnection()
         {
-            con = new SqlConnection("Data Source = DESKTOP-DKAMI8D;Initial Catalog=Bank;Integrated Security=true");
+            con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
             con.Open();
             Console.WriteLine("Nawiązano połączenie z serwerem");
             Console.WriteLine();
@@ -125,5 +129,5 @@ namespace Bank
         }
     }
 
-    }
 }
+
