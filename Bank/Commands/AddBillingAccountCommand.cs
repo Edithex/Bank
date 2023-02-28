@@ -19,9 +19,9 @@ namespace Bank.Commands
             Printer = printer;
         }
 
-        public string GetName()
+        public int GetName()
         {
-            return "2";
+            return (int)CommandsName.AddBillingAccounts;
         }
 
         public string GetDescription()

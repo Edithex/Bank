@@ -17,9 +17,9 @@ namespace Bank.Commands
 
         }
 
-        public string GetName()
+        public int GetName()
         {
-            return "7";
+            return (int)CommandsName.CloseMonth;
         }
 
         public string GetDescription()

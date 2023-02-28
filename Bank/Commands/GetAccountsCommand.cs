@@ -15,9 +15,9 @@ namespace Bank.Commands
             AccountManager = accountManager;
         }
 
-        public string GetName()
-        {
-            return "9";
+        public int GetName()
+        { 
+            return 9;
         }
 
         public string GetDescription()

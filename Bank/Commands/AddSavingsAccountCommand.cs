@@ -18,9 +18,9 @@ namespace Bank.Commands
 
         }
 
-        public string GetName()
+        public int GetName()
         {
-            return "3";
+            return (int)CommandsName.AddSavingsAccounts;
         }
 
         public string GetDescription()

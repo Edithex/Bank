@@ -16,14 +16,14 @@ namespace Bank.Commands
             AccountManager = accountManager;
         }
 
-        public string GetName()
+        public int GetName()
         {
-            return "8";
+            return (int)CommandsName.SavingToFile;
         }
 
         public string GetDescription()
         {
-            return "Zapisz dane";
+            return "Zapisz dane do pliku";
         }
 
 

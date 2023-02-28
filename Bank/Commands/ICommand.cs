@@ -10,7 +10,7 @@ namespace Bank.Commands
     {
         public void Run();
 
-        public string GetName();
+        public int GetName();
 
         public string GetDescription();
     }

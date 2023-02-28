@@ -20,14 +20,14 @@ namespace Bank.Commands
 
         }
         
-        public string GetName()
+        public int GetName()
         {
-            return "5";
+            return (int)CommandsName.TakeMoney;
         }
 
         public string GetDescription()
         {
-            return "Wypłata pieniędzy na konto";
+            return "Wypłata pieniędzy z konta";
         }
 
 
