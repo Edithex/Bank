@@ -58,16 +58,7 @@ namespace Bank.Commands
             if (name == 0)
                 return;
 
-            ICommand selected = null;
-
-            foreach(ICommand command in Commands)
-            { 
-                if(command.GetName() == name)
-                {
-                    selected = command;
-                    break;
-                }
-            }
+            ICommand selected = Commands.FirstOrDefault(c => c.GetName() == name);
 
             if(selected!= null) 
             {
