@@ -45,7 +45,7 @@ namespace Bank.Commands
                     action = Console.ReadLine();
                     //if (string.IsNullOrEmpty(action))
                     //{
-                        RunCommand(action);
+                        RunCommand(int.Parse(action));
                     //}
                 
             }
@@ -53,9 +53,9 @@ namespace Bank.Commands
 
         }
 
-        public void RunCommand(string name) 
+        public void RunCommand(int name) 
         {
-            if (name == "0")
+            if (name == 0)
                 return;
 
             ICommand selected = null;
